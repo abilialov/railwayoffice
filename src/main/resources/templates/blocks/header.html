@@ -1,0 +1,35 @@
+<div th:fragment="header">
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2 link-dark" th:text="#{menu.home}"></a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="/stations" class="nav-link px-2 link-dark" th:text="#{menu.stations}"></a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="/routes" class="nav-link px-2 link-dark" th:text="#{menu.routes}"></a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="/userslist" class="nav-link px-2 link-dark" th:text="#{menu.userlist}"></a></li>
+            <li sec:authorize="hasRole('USER')"><a href="/ticketlist" class="nav-link px-2 link-dark" th:text="#{menu.ticketlist}"></a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="/ticketlist" class="nav-link px-2 link-dark" th:text="#{menu.ticketlist}"></a></li>
+<!--            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>-->
+<!--            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>-->
+        </ul>
+
+
+        <div class="lang_uk_en">
+            <a href="?language=en">EN</a> |
+            <a href="?language=uk">UK</a>
+        </div>
+
+        <a href="/user/+${user.id}" sec:authorize="isAuthenticated()"><span th:text="#{menu.greeting}"></span> <span sec:authentication="name"></span></a>
+        <div class="col-md-0 text-end">
+                <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                    <input type="submit" th:value="#{menu.singout}" class="btn btn-primary"/>
+                </form>
+                <a sec:authorize="!isAuthenticated()" href="/registration" type="button" class="btn btn-primary" th:text="#{menu.registration}"></a>
+                <a sec:authorize="!isAuthenticated()" href="/login" type="button" class="btn btn-primary" th:text="#{menu.login}"></a>
+        </div>
+    </header>
+</div>
+</div>

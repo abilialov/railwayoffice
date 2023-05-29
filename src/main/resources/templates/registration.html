@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title th:text="#{registration.title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!--    <div class="g-recaptcha" data-sitekey="6LcithkmAAAAAJ3TxC52UH_WqdrZa9Rt1FszheUf"></div>-->
+
+    <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+</head>
+<body>
+<div th:insert="blocks/header :: header"></div>
+
+
+<br /><br /><br />
+<div class="container">
+    <div class="row col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center" th:text="#{registration.title}"></h2>
+            </div>
+            <div th:if="${param.success}">
+                <div class="alert alert-info" th:text="#{registration.success}"></div>
+            </div>
+            <div class="card-body" th:if="${param != 'success'}">
+                <form
+                        method="post"
+                        role="form"
+                        th:action="@{/registration/save}"
+                        th:object="${user}"
+                >
+                    <div class="form-group mb-3">
+                        <label class="form-label" th:text="#{registration.name}"></label>
+                        <input
+                                class="form-control"
+                                id="firstName"
+                                name="firstName"
+                                th:placeholder="#{registration.name.enter}"
+                                th:field="*{firstName}"
+                                type="text"
+                        />
+                        <p th:errors = "*{firstName}" class="text-danger"
+                           th:if="${#fields.hasErrors('firstName')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label"  th:text="#{registration.lastname}"></label>
+                        <input
+                                class="form-control"
+                                id="lastName"
+                                name="lastName"
+                                th:placeholder="#{registration.lastname.enter}"
+                                th:field="*{lastName}"
+                                type="text"
+                        />
+                        <p th:errors = "*{lastName}" class="text-danger"
+                           th:if="${#fields.hasErrors('lastName')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label" th:text="#{registration.login}"> </label>
+                        <input
+                                class="form-control"
+                                id="login"
+                                name="login"
+                                th:placeholder="#{registration.login.enter}"
+                                th:field="*{login}"
+                                type="text"
+                        />
+                        <p th:errors = "*{login}" class="text-danger"
+                           th:if="${#fields.hasErrors('login')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label" th:text="#{registration.phone}"></label>
+                        <input
+                                class="form-control"
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                th:placeholder="#{registration.phone.enter}"
+                                th:field="*{phoneNumber}"
+                                type="text"
+                        />
+                        <p th:errors = "*{phoneNumber}" class="text-danger"
+                           th:if="${#fields.hasErrors('phoneNumber')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label" th:text="#{registration.email}"></label>
+                        <input
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                th:placeholder="#{registration.email.enter}"
+                                th:field="*{email}"
+                                type="email"
+                        />
+                        <p th:errors = "*{email}" class="text-danger"
+                           th:if="${#fields.hasErrors('email')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label" th:text="#{registration.password}"></label>
+                        <input
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                th:placeholder="#{registration.password.enter}"
+                                th:field="*{password}"
+                                type="password"
+                        />
+                        <p th:errors = "*{password}" class="text-danger"
+                           th:if="${#fields.hasErrors('password')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <div class="g-recaptcha col-sm-5"
+                             th:attr="data-sitekey=${@captchaSettings.getSite()}"></div>
+                    </div>
+                    <div class="form-group mb-3" th:if="${captchaError != null}">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                         <span  id="captchaError"  name="captchaError" class="alert alert-danger col-sm-4"
+                               th:text="#{captcha.confirm}"></span>
+
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit" th:text="#{registration.register}"></button>
+                        <span th:text="#{registration.alreadyregister}"> </span>
+                        <span><a th:href="@{/login}" th:text="#{registration.login.here}"></a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>

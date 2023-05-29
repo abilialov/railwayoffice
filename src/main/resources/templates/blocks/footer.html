@@ -1,0 +1,16 @@
+<div th:fragment="footer">
+<div class="container">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+
+            <li class="nav-item"><a href="/" class="nav-link px-2 link-dark" th:text="#{menu.home}"></a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="/stations" class="nav-link px-2 link-dark" th:text="#{menu.stations}"></a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="/routes" class="nav-link px-2 link-dark" th:text="#{menu.routes}"></a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="/userslist" class="nav-link px-2 link-dark" th:text="#{menu.userlist}"></a></li>
+<!--            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>-->
+<!--            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>-->
+        </ul>
+        <p class="text-center text-dark"></p>
+    </footer>
+</div>
+</div>
